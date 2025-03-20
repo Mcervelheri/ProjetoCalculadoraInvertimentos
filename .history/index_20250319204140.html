@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <title>Calculadora de investimentos Impressionadora</title>
+  </head>
+  <body class="h-[100dvh] grid grid-cols-3 grid-rows-2">
+    <aside
+      class="row-span-2 bg-emerald-300 flex flex-col justify-between py-5 px-2"
+    >
+      <h1 class="text-2x1 font-bold px-6">Calculadora de Investimentos</h1>
+      <form class="w-full">
+        <div class="flex w-full flex-col">
+          <label for="return-rate">Rentabilidade</label>
+          <div class="flex">
+            <input
+              type="text"
+              class="w-1/6 text-center rounded-r-lg"
+              value="%"
+              disabled
+            />
+            <input type="text" class="w-1/2 bg-white" id="return-rate" />
+            <select class="w-1/3 bg-white" id="evaluation-period">
+              <option value="monthly">Mensal</option>
+              <option value="yearly">Anual</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div>
+        <button>Calcular</button>
+        <button>Limpar</button>
+      </div>
+    </aside>
+    <main>
+      <p>Resultados</p>
+    </main>
+  </body>
+</html>

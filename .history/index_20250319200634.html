@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css" />
+    <title>Calculadora de investimentos Impressionadora</title>
+  </head>
+  <body class="h-[100dvh] grid grid-cols-3 grid-rows-2">
+    <aside class="bg-emerald-300 row-span-2 col-span-1 flex">
+      <h1 class="text-2x1 font-bold px-6 py-2">Calculadora de Investimentos</h1>
+      <form>
+        <label for="valorInicial">Valor inicial</label>
+        <input type="number" id="valorInicial" name="valorInicial" />
+        <label for="aporteMensal">Aporte mensal</label>
+        <input type="number" id="aporteMensal" name="aporteMensal" />
+        <label for="tempo">Tempo</label>
+        <input type="number" id="tempo" name="tempo" />
+        <label for="taxa">Taxa</label>
+        <input type="number" id="taxa" name="taxa" />
+        <button type="submit">Calcular</button>
+        <button>Limpar</button>
+      </form>
+    </aside>
+    <main>
+      <p>Resultados</p>
+    </main>
+  </body>
+</html>
