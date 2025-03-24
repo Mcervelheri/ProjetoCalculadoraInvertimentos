@@ -37,13 +37,13 @@ function renderProgression(evt) {
 }
 
 function clearForm() {
-  form.reset();
-
-  const errorElements = document.querySelectorAll(".error");
-  for (const errorElement of errorElements) {
-    errorElement.classList.remove("error");
-    errorElement.parentElement.querySelector("p").remove();
-  }
+  form["starting-amount"].value = "";
+  form["additional-contribution"].value = "";
+  form["time-amount"].value = "";
+  form["return-rate"].value = "";
+  form["tax-rate"].value = "";
+  form["time-amount-period"].value = "monthly";
+  form["evaluation-period"].value = "monthly";
 }
 
 function validateInput(evt) {
@@ -85,6 +85,8 @@ for (const formElement of form) {
 
 form.addEventListener("submit", renderProgression);
 
-const clanerButton = document.getElementById("clear-form");
+const clanerButton = document.getElementById("cleaner-button");
 
-clanerButton.addEventListener("click", clearForm);
+clanerButton.addEventListener("click", () => {
+  form.reset();
+});

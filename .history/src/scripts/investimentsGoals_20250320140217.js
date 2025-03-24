@@ -52,6 +52,4 @@ export default function generateReturnsArray(
       totalAmount,
     });
   }
-
-  return returnsArray;
 }

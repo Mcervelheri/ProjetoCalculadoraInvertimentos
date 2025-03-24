@@ -37,13 +37,7 @@ function renderProgression(evt) {
 }
 
 function clearForm() {
-  form.reset();
-
-  const errorElements = document.querySelectorAll(".error");
-  for (const errorElement of errorElements) {
-    errorElement.classList.remove("error");
-    errorElement.parentElement.querySelector("p").remove();
-  }
+  form.
 }
 
 function validateInput(evt) {
@@ -85,6 +79,8 @@ for (const formElement of form) {
 
 form.addEventListener("submit", renderProgression);
 
-const clanerButton = document.getElementById("clear-form");
+const clanerButton = document.getElementById("cleaner-button");
 
-clanerButton.addEventListener("click", clearForm);
+clanerButton.addEventListener("click", () => {
+  form.reset();
+});

@@ -42,7 +42,6 @@ function clearForm() {
   const errorElements = document.querySelectorAll(".error");
   for (const errorElement of errorElements) {
     errorElement.classList.remove("error");
-    errorElement.parentElement.querySelector("p").remove();
   }
 }
 

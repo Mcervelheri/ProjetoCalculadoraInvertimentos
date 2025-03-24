@@ -4,10 +4,6 @@ const form = document.getElementById("investment-form");
 
 function renderProgression(evt) {
   evt.preventDefault();
-  if (document.querySelector(".error")) {
-    return;
-  }
-
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -36,16 +32,6 @@ function renderProgression(evt) {
   console.log(returnsArray);
 }
 
-function clearForm() {
-  form.reset();
-
-  const errorElements = document.querySelectorAll(".error");
-  for (const errorElement of errorElements) {
-    errorElement.classList.remove("error");
-    errorElement.parentElement.querySelector("p").remove();
-  }
-}
-
 function validateInput(evt) {
   if (evt.target.value === "") {
     return;
@@ -55,10 +41,7 @@ function validateInput(evt) {
   const grandParentElement = parentElement.parentElement;
   const inputValue = evt.target.value.replace(",", ".");
 
-  if (
-    !parentElement.classList.contains("error") &&
-    (isNaN(inputValue) || Number(inputValue) <= 0)
-  ) {
+  if (isNaN(inputValue) || Number(inputValue) <= 0) {
     const errorTextElement = document.createElement("p");
     errorTextElement.classList.add("text-red-500");
     errorTextElement.innerText = "Insira um valor numérico e maior que zero";
@@ -67,13 +50,12 @@ function validateInput(evt) {
     grandParentElement.appendChild(errorTextElement);
   }
 
-  if (
-    parentElement.classList.contains("error") &&
-    !isNaN(inputValue) &&
-    Number(inputValue) > 0
-  ) {
+  if (!isNaN(inputValue) && Number(inputValue) > 0) {
     parentElement.classList.remove("error");
-    grandParentElement.querySelector("p").remove();
+    const errorTextElement = grandParentElement.querySelector("p");
+    if (errorTextElement) {
+      grandParentElement.removeChild(errorTextElement);
+    }
   }
 }
 
@@ -82,9 +64,4 @@ for (const formElement of form) {
     formElement.addEventListener("blur", validateInput);
   }
 }
-
 form.addEventListener("submit", renderProgression);
-
-const clanerButton = document.getElementById("clear-form");
-
-clanerButton.addEventListener("click", clearForm);

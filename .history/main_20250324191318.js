@@ -36,16 +36,6 @@ function renderProgression(evt) {
   console.log(returnsArray);
 }
 
-function clearForm() {
-  form.reset();
-
-  const errorElements = document.querySelectorAll(".error");
-  for (const errorElement of errorElements) {
-    errorElement.classList.remove("error");
-    errorElement.parentElement.querySelector("p").remove();
-  }
-}
-
 function validateInput(evt) {
   if (evt.target.value === "") {
     return;
@@ -56,8 +46,8 @@ function validateInput(evt) {
   const inputValue = evt.target.value.replace(",", ".");
 
   if (
-    !parentElement.classList.contains("error") &&
-    (isNaN(inputValue) || Number(inputValue) <= 0)
+    isNaN(inputValue) ||
+    (Number(inputValue) <= 0 && !parentElement.classList.contains("error"))
   ) {
     const errorTextElement = document.createElement("p");
     errorTextElement.classList.add("text-red-500");
@@ -68,9 +58,9 @@ function validateInput(evt) {
   }
 
   if (
-    parentElement.classList.contains("error") &&
     !isNaN(inputValue) &&
-    Number(inputValue) > 0
+    Number(inputValue) > 0 &&
+    parentElement.classList.contains("error")
   ) {
     parentElement.classList.remove("error");
     grandParentElement.querySelector("p").remove();
@@ -84,7 +74,3 @@ for (const formElement of form) {
 }
 
 form.addEventListener("submit", renderProgression);
-
-const clanerButton = document.getElementById("clear-form");
-
-clanerButton.addEventListener("click", clearForm);
