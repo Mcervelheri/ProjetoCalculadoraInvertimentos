@@ -172,6 +172,6 @@ for (const formElement of form) {
   }
 }
 
-// form.addEventListener("submit", renderProgression);
+form.addEventListener("submit", renderProgression);
 
 clanerButton.addEventListener("click", clearForm);
