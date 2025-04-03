@@ -1,23 +1,17 @@
 import generateReturnsArray from "./src/scripts/investimentsGoals.js";
 import { Chart } from "chart.js/auto";
 
-const finalMoneyChart = document.getElementById("final-money-distribution");
-const progressionChart = document.getElementById("progression");
+const finalMoneyChart = document.getElementById("final-money-chart");
+const progressionChart = document.getElementById("progression-chart");
 const form = document.getElementById("investment-form");
 const clanerButton = document.getElementById("clear-form");
-let doughnutChartReference = {};
-let progressionChartReference = {};
-
-function formatCurrency(value) {
-  return value.toFixed(2);
-}
 
 function renderProgression(evt) {
   evt.preventDefault();
   if (document.querySelector(".error")) {
     return;
   }
-  resetCharts();
+
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -43,90 +37,25 @@ function renderProgression(evt) {
     returnRatePeriod
   );
 
-  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+  const finalInvestmentObject 
 
-  doughnutChartReference = new Chart(finalMoneyChart, {
+  new Chart(finalMoneyChart, {
     type: "doughnut",
     data: {
-      labels: ["Total Investido", "Rendimento", "Imposto"],
+      labels: ["Imposto", "Rendimentos", "Contribuições"],
       datasets: [
         {
-          data: [
-            formatCurrency(finalInvestmentObject.investedAmount),
-            formatCurrency(
-              finalInvestmentObject.totalInterestReturns * (1 - taxRate / 100)
-            ),
-            formatCurrency(
-              (finalInvestmentObject.totalInterestReturns * taxRate) / 100
-            ),
-          ],
-          backgroundColor: [
-            "rgb(255,99,132)",
-            "rgb(54,162,235)",
-            "rgb(255,205,86)",
-          ],
+          label: "Imposto",
+          data: [taxRate, 100 - taxRate],
+          backgroundColor: ["#FF0000", "#00FF00"],
         },
       ],
     },
   });
-
-  progressionChartReference = new Chart(progressionChart, {
-    type: "bar",
-    data: {
-      labels: returnsArray.map((item) => item.month),
-      datasets: [
-        {
-          label: "Total Investido",
-          data: returnsArray.map((item) => formatCurrency(item.investedAmount)),
-          backgroundColor: "rgb(255,99,132)",
-        },
-        {
-          lable: "Imposto",
-          data: returnsArray.map((item) =>
-            formatCurrency((item.totalInterestReturns * taxRate) / 100)
-          ),
-          backgroundColor: "rgb(255,205,86)",
-        },
-        {
-          label: "Retorno de Investimento",
-          data: returnsArray.map((item) =>
-            formatCurrency(item.totalInterestReturns * (1 - taxRate / 100))
-          ),
-          backgroundColor: "rgb(54,162,235)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          stacked: true,
-        },
-        y: {
-          stacked: true,
-        },
-      },
-    },
-  });
-}
-
-function isObjectEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-
-function resetCharts() {
-  if (
-    !isObjectEmpty(doughnutChartReference) &&
-    !isObjectEmpty(progressionChartReference)
-  ) {
-    doughnutChartReference.destroy();
-    progressionChartReference.destroy();
-  }
 }
 
 function clearForm() {
   form.reset();
-  resetCharts();
 
   const errorElements = document.querySelectorAll(".error");
   for (const errorElement of errorElements) {

@@ -5,8 +5,6 @@ const finalMoneyChart = document.getElementById("final-money-distribution");
 const progressionChart = document.getElementById("progression");
 const form = document.getElementById("investment-form");
 const clanerButton = document.getElementById("clear-form");
-let doughnutChartReference = {};
-let progressionChartReference = {};
 
 function formatCurrency(value) {
   return value.toFixed(2);
@@ -17,7 +15,7 @@ function renderProgression(evt) {
   if (document.querySelector(".error")) {
     return;
   }
-  resetCharts();
+
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -45,7 +43,7 @@ function renderProgression(evt) {
 
   const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 
-  doughnutChartReference = new Chart(finalMoneyChart, {
+  const doughnutChartReference = new Chart(finalMoneyChart, {
     type: "doughnut",
     data: {
       labels: ["Total Investido", "Rendimento", "Imposto"],
@@ -70,7 +68,7 @@ function renderProgression(evt) {
     },
   });
 
-  progressionChartReference = new Chart(progressionChart, {
+  const progressionChartReference = new Chart(progressionChart, {
     type: "bar",
     data: {
       labels: returnsArray.map((item) => item.month),
@@ -81,16 +79,9 @@ function renderProgression(evt) {
           backgroundColor: "rgb(255,99,132)",
         },
         {
-          lable: "Imposto",
-          data: returnsArray.map((item) =>
-            formatCurrency((item.totalInterestReturns * taxRate) / 100)
-          ),
-          backgroundColor: "rgb(255,205,86)",
-        },
-        {
           label: "Retorno de Investimento",
           data: returnsArray.map((item) =>
-            formatCurrency(item.totalInterestReturns * (1 - taxRate / 100))
+            formatCurrency(item.totalInterestReturns)
           ),
           backgroundColor: "rgb(54,162,235)",
         },
@@ -110,23 +101,10 @@ function renderProgression(evt) {
   });
 }
 
-function isObjectEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
-
-function resetCharts() {
-  if (
-    !isObjectEmpty(doughnutChartReference) &&
-    !isObjectEmpty(progressionChartReference)
-  ) {
-    doughnutChartReference.destroy();
-    progressionChartReference.destroy();
-  }
-}
+function resetCharts() {}
 
 function clearForm() {
   form.reset();
-  resetCharts();
 
   const errorElements = document.querySelectorAll(".error");
   for (const errorElement of errorElements) {

@@ -5,8 +5,8 @@ const finalMoneyChart = document.getElementById("final-money-distribution");
 const progressionChart = document.getElementById("progression");
 const form = document.getElementById("investment-form");
 const clanerButton = document.getElementById("clear-form");
-let doughnutChartReference = {};
-let progressionChartReference = {};
+let doughnutChartReference;
+let progressionChartReference;
 
 function formatCurrency(value) {
   return value.toFixed(2);
@@ -81,16 +81,9 @@ function renderProgression(evt) {
           backgroundColor: "rgb(255,99,132)",
         },
         {
-          lable: "Imposto",
-          data: returnsArray.map((item) =>
-            formatCurrency((item.totalInterestReturns * taxRate) / 100)
-          ),
-          backgroundColor: "rgb(255,205,86)",
-        },
-        {
           label: "Retorno de Investimento",
           data: returnsArray.map((item) =>
-            formatCurrency(item.totalInterestReturns * (1 - taxRate / 100))
+            formatCurrency(item.totalInterestReturns)
           ),
           backgroundColor: "rgb(54,162,235)",
         },
@@ -111,7 +104,7 @@ function renderProgression(evt) {
 }
 
 function isObjectEmpty(obj) {
-  return Object.keys(obj).length === 0;
+  return obj.keys(obj).length === 0;
 }
 
 function resetCharts() {

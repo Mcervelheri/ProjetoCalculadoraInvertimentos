@@ -81,13 +81,6 @@ function renderProgression(evt) {
           backgroundColor: "rgb(255,99,132)",
         },
         {
-          lable: "Imposto",
-          data: returnsArray.map((item) =>
-            formatCurrency((item.totalInterestReturns * taxRate) / 100)
-          ),
-          backgroundColor: "rgb(255,205,86)",
-        },
-        {
           label: "Retorno de Investimento",
           data: returnsArray.map((item) =>
             formatCurrency(item.totalInterestReturns * (1 - taxRate / 100))
