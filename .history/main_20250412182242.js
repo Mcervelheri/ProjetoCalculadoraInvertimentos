@@ -49,7 +49,6 @@ function renderProgression(evt) {
     return;
   }
   resetCharts();
-  resetTable();
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );

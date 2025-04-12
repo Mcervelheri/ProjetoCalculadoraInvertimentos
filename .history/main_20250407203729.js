@@ -10,36 +10,14 @@ let doughnutChartReference = {};
 let progressionChartReference = {};
 
 const columnsArray = [
+  { columnLabel: "Total Investido", accessor: "investedAmount" },
+  { columnLabel: "Rendimento Mensal", accessor: "interestReturns" },
+  { columnLabel: "Rendimento Total", accessor: "totalInterestReturns" },
   { columnLabel: "Mês", accessor: "month" },
-  {
-    columnLabel: "Total Investido",
-    accessor: "investedAmount",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
-  },
-  {
-    columnLabel: "Rendimento Mensal",
-    accessor: "interestReturns",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
-  },
-  {
-    columnLabel: "Rendimento Total",
-    accessor: "totalInterestReturns",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
-  },
-  {
-    columnLabel: "Quantia Total",
-    accessor: "totalAmount",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
-  },
+  { columnLabel: }
 ];
 
-function formatCurrencyToTable(value) {
-  return value.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
-function formatCurrencyToGraph(value) {
+function formatCurrency(value) {
   return value.toFixed(2);
 }
 
@@ -49,7 +27,6 @@ function renderProgression(evt) {
     return;
   }
   resetCharts();
-  resetTable();
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -75,7 +52,7 @@ function renderProgression(evt) {
     returnRatePeriod
   );
 
-  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
+  /*  const finalInvestmentObject = returnsArray[returnsArray.length - 1];
 
   doughnutChartReference = new Chart(finalMoneyChart, {
     type: "doughnut",
@@ -84,11 +61,11 @@ function renderProgression(evt) {
       datasets: [
         {
           data: [
-            formatCurrencyToGraph(finalInvestmentObject.investedAmount),
-            formatCurrencyToGraph(
+            formatCurrency(finalInvestmentObject.investedAmount),
+            formatCurrency(
               finalInvestmentObject.totalInterestReturns * (1 - taxRate / 100)
             ),
-            formatCurrencyToGraph(
+            formatCurrency(
               (finalInvestmentObject.totalInterestReturns * taxRate) / 100
             ),
           ],
@@ -109,24 +86,20 @@ function renderProgression(evt) {
       datasets: [
         {
           label: "Total Investido",
-          data: returnsArray.map((item) =>
-            formatCurrencyToGraph(item.investedAmount)
-          ),
+          data: returnsArray.map((item) => formatCurrency(item.investedAmount)),
           backgroundColor: "rgb(255,99,132)",
         },
         {
           lable: "Imposto",
           data: returnsArray.map((item) =>
-            formatCurrencyToGraph((item.totalInterestReturns * taxRate) / 100)
+            formatCurrency((item.totalInterestReturns * taxRate) / 100)
           ),
           backgroundColor: "rgb(255,205,86)",
         },
         {
           label: "Retorno de Investimento",
           data: returnsArray.map((item) =>
-            formatCurrencyToGraph(
-              item.totalInterestReturns * (1 - taxRate / 100)
-            )
+            formatCurrency(item.totalInterestReturns * (1 - taxRate / 100))
           ),
           backgroundColor: "rgb(54,162,235)",
         },
@@ -143,8 +116,8 @@ function renderProgression(evt) {
         },
       },
     },
-  });
-  createTable(columnsArray, returnsArray, "results-table");
+  });*/
+  createTable();
 }
 
 function isObjectEmpty(obj) {
@@ -161,22 +134,9 @@ function resetCharts() {
   }
 }
 
-function resetTable() {
-  const tableElement = document.getElementById("results-table");
-  const tableBody = tableElement.querySelector("tbody");
-  if (tableBody) {
-    tableBody.remove();
-  }
-  const tableHeader = tableElement.querySelector("thead");
-  if (tableHeader) {
-    tableHeader.remove();
-  }
-}
-
 function clearForm() {
   form.reset();
   resetCharts();
-  resetTable();
 
   const errorElements = document.querySelectorAll(".error");
   for (const errorElement of errorElements) {
@@ -221,18 +181,6 @@ for (const formElement of form) {
     formElement.addEventListener("blur", validateInput);
   }
 }
-
-const mainEl = document.querySelector("main");
-const carouselEl = document.getElementById("carousel");
-const nextButton = document.getElementById("slide-arrow-next");
-const previousButton = document.getElementById("slide-arrow-previous");
-
-nextButton.addEventListener("click", () => {
-  carouselEl.scrollLeft += mainEl.clientWidth;
-});
-previousButton.addEventListener("click", () => {
-  carouselEl.scrollLeft -= mainEl.clientWidth;
-});
 
 form.addEventListener("submit", renderProgression);
 

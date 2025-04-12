@@ -49,7 +49,6 @@ function renderProgression(evt) {
     return;
   }
   resetCharts();
-  resetTable();
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -176,7 +175,6 @@ function resetTable() {
 function clearForm() {
   form.reset();
   resetCharts();
-  resetTable();
 
   const errorElements = document.querySelectorAll(".error");
   for (const errorElement of errorElements) {

@@ -49,7 +49,6 @@ function renderProgression(evt) {
     return;
   }
   resetCharts();
-  resetTable();
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -167,10 +166,10 @@ function resetTable() {
   if (tableBody) {
     tableBody.remove();
   }
-  const tableHeader = tableElement.querySelector("thead");
+  /*   const tableHeader = tableElement.querySelector("thead");
   if (tableHeader) {
     tableHeader.remove();
-  }
+  } */
 }
 
 function clearForm() {

@@ -14,22 +14,22 @@ const columnsArray = [
   {
     columnLabel: "Total Investido",
     accessor: "investedAmount",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+    format: (numberInfo) => formatCurrency(numberInfo),
   },
   {
     columnLabel: "Rendimento Mensal",
     accessor: "interestReturns",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+    format: (numberInfo) => formatCurrency(numberInfo),
   },
   {
     columnLabel: "Rendimento Total",
     accessor: "totalInterestReturns",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+    format: (numberInfo) => formatCurrency(numberInfo),
   },
   {
     columnLabel: "Quantia Total",
     accessor: "totalAmount",
-    format: (numberInfo) => formatCurrencyToTable(numberInfo),
+    format: (numberInfo) => formatCurrency(numberInfo),
   },
 ];
 
@@ -49,7 +49,6 @@ function renderProgression(evt) {
     return;
   }
   resetCharts();
-  resetTable();
   const startingAmount = Number(
     document.getElementById("starting-amount").value.replace(",", ".")
   );
@@ -161,22 +160,9 @@ function resetCharts() {
   }
 }
 
-function resetTable() {
-  const tableElement = document.getElementById("results-table");
-  const tableBody = tableElement.querySelector("tbody");
-  if (tableBody) {
-    tableBody.remove();
-  }
-  const tableHeader = tableElement.querySelector("thead");
-  if (tableHeader) {
-    tableHeader.remove();
-  }
-}
-
 function clearForm() {
   form.reset();
   resetCharts();
-  resetTable();
 
   const errorElements = document.querySelectorAll(".error");
   for (const errorElement of errorElements) {
@@ -221,18 +207,6 @@ for (const formElement of form) {
     formElement.addEventListener("blur", validateInput);
   }
 }
-
-const mainEl = document.querySelector("main");
-const carouselEl = document.getElementById("carousel");
-const nextButton = document.getElementById("slide-arrow-next");
-const previousButton = document.getElementById("slide-arrow-previous");
-
-nextButton.addEventListener("click", () => {
-  carouselEl.scrollLeft += mainEl.clientWidth;
-});
-previousButton.addEventListener("click", () => {
-  carouselEl.scrollLeft -= mainEl.clientWidth;
-});
 
 form.addEventListener("submit", renderProgression);
 
