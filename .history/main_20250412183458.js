@@ -117,14 +117,16 @@ function renderProgression(evt) {
         {
           lable: "Imposto",
           data: returnsArray.map((item) =>
-            formatCurrencyToGraph((item.interestReturns * taxRate) / 100)
+            formatCurrencyToGraph((item.totalInterestReturns * taxRate) / 100)
           ),
           backgroundColor: "rgb(255,205,86)",
         },
         {
           label: "Retorno de Investimento",
           data: returnsArray.map((item) =>
-            formatCurrencyToGraph(item.interestReturns * (1 - taxRate / 100))
+            formatCurrencyToGraph(
+              item.totalInterestReturns * (1 - taxRate / 100)
+            )
           ),
           backgroundColor: "rgb(54,162,235)",
         },
@@ -226,10 +228,10 @@ const nextButton = document.getElementById("slide-arrow-next");
 const previousButton = document.getElementById("slide-arrow-previous");
 
 nextButton.addEventListener("click", () => {
-  carouselEl.scrollLeft += mainEl.clientWidth;
+  carouselEl.scrollBy({ left: mainEl.clientWidth, behavior: "smooth" });
 });
 previousButton.addEventListener("click", () => {
-  carouselEl.scrollLeft -= mainEl.clientWidth;
+  carouselEl.scrollBy({ left: -mainEl.clientWidth, behavior: "smooth" });
 });
 
 form.addEventListener("submit", renderProgression);

@@ -117,7 +117,7 @@ function renderProgression(evt) {
         {
           lable: "Imposto",
           data: returnsArray.map((item) =>
-            formatCurrencyToGraph((item.interestReturns * taxRate) / 100)
+            formatCurrencyToGraph((item.totalInterestReturns * taxRate) / 100)
           ),
           backgroundColor: "rgb(255,205,86)",
         },
